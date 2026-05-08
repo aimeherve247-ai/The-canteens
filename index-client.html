@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Canteen's — Restaurant · Bar · Lounge · Game Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{cursor:pointer;font-family:inherit;border:none;outline:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#E11D48;border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:72px;background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transition:all .3s}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:48px;width:auto;border-radius:8px}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:#9CA3AF;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#E11D48}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;transition:all .2s}
+.btn-primary{background:#E11D48;color:#fff}
+.btn-primary:hover{background:#c4173a;transform:scale(1.02)}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2)}
+.btn-outline:hover{background:rgba(255,255,255,0.05)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.6}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.7) 50%,#000 100%)}
+.hero-content{position:relative;z-index:1;text-align:center;padding:0 24px;max-width:800px;margin-top:60px}
+.hero-logo{width:160px;height:160px;object-fit:cover;border-radius:20px;margin:0 auto 32px;box-shadow:0 20px 60px rgba(225,29,72,0.3)}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;line-height:1.1;letter-spacing:-2px}
+.hero h1 span{color:#E11D48}
+.hero-sub{font-size:20px;color:#9CA3AF;margin-top:16px;font-weight:300}
+.hero-desc{font-size:16px;color:#6B7280;margin-top:20px;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto}
+.hero-cta{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px;flex-wrap:wrap}
+.btn-lg{padding:16px 32px;border-radius:12px;font-size:15px}
+.hero .btn-lg{box-shadow:0 8px 32px rgba(225,29,72,0.35)}
+.scroll-ind{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-ind span{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:#6B7280}
+.scroll-dot{width:24px;height:40px;border:2px solid rgba(255,255,255,0.2);border-radius:12px;display:flex;justify-content:center;padding-top:6px}
+.scroll-dot::after{content:'';width:6px;height:6px;background:#E11D48;border-radius:50%;animation:scrollBounce 2s infinite}
+@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(12px);opacity:.3}}
+
+/* SECTIONS */
+.section{padding:100px 24px}.container{max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:64px}
+.section-tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#E11D48;margin-bottom:12px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;line-height:1.2}
+.section-desc{font-size:17px;color:#6B7280;margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.service-card{position:relative;border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);transition:all .3s;cursor:pointer}
+.service-card:hover{transform:translateY(-8px);border-color:rgba(225,29,72,0.3);box-shadow:0 20px 60px rgba(225,29,72,0.1)}
+.service-img{height:220px;overflow:hidden;position:relative}
+.service-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.service-card:hover .service-img img{transform:scale(1.1)}
+.service-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.3) 60%,transparent 100%)}
+.service-icon{position:absolute;top:16px;left:16px;width:44px;height:44px;background:rgba(225,29,72,0.9);backdrop-filter:blur(10px);border-radius:12px;display:flex;align-items:center;justify-content:center;z-index:2}
+.service-icon svg{width:22px;height:22px;color:#fff}
+.service-body{padding:20px}
+.service-sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#E11D48;margin-bottom:6px}
+.service-name{font-size:22px;font-weight:700;margin-bottom:8px}
+.service-desc{font-size:14px;color:#6B7280;line-height:1.6;margin-bottom:16px}
+.service-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#E11D48;transition:gap .2s}
+.service-link:hover{gap:10px}
+
+/* MENU SECTION */
+.menu-tabs{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap}
+.menu-tab{padding:12px 24px;border-radius:999px;font-size:14px;font-weight:600;transition:all .2s;background:rgba(255,255,255,0.05);color:#9CA3AF;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
+.menu-tab:hover{background:rgba(255,255,255,0.08);color:#fff}
+.menu-tab.active{background:#E11D48;color:#fff;border-color:#E11D48}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.menu-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;transition:all .3s}
+.menu-card:hover{border-color:rgba(255,255,255,0.15);transform:scale(1.02)}
+.menu-img{height:180px;overflow:hidden;position:relative}
+.menu-img img{width:100%;height:100%;object-fit:cover}
+.menu-badge{position:absolute;top:12px;left:12px;background:#E11D48;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px}
+.menu-info{padding:20px}
+.menu-name{font-size:16px;font-weight:700;margin-bottom:6px}
+.menu-desc{font-size:13px;color:#6B7280;line-height:1.5;margin-bottom:16px}
+.menu-bottom{display:flex;align-items:center;justify-content:space-between}
+.menu-price{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#E11D48}
+.menu-add{width:36px;height:36px;background:#E11D48;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .2s}
+.menu-add:hover{background:#c4173a;transform:scale(1.1)}
+
+/* GAMING */
+.gaming-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.gaming-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;transition:all .3s;text-align:center}
+.gaming-card:hover{border-color:rgba(225,29,72,0.3);transform:translateY(-4px)}
+.gaming-icon{width:64px;height:64px;background:rgba(225,29,72,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.gaming-icon svg{width:32px;height:32px;color:#E11D48}
+.gaming-name{font-size:18px;font-weight:700;margin-bottom:8px}
+.gaming-desc{font-size:14px;color:#6B7280;margin-bottom:20px;line-height:1.5}
+.gaming-price{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#E11D48}
+.gaming-price span{font-size:14px;color:#6B7280;font-weight:400}
+.gaming-dispo{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:13px;color:#10B981;background:rgba(16,185,129,0.1);padding:6px 14px;border-radius:999px}
+.gaming-btn{width:100%;margin-top:20px;padding:12px;background:#E11D48;color:#fff;border-radius:10px;font-size:14px;font-weight:600;transition:opacity .2s}
+.gaming-btn:hover{opacity:.9}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.contact-info{display:flex;flex-direction:column;gap:24px}
+.contact-item{display:flex;align-items:center;gap:16px}
+.contact-icon{width:48px;height:48px;background:rgba(255,255,255,0.05);border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.08)}
+.contact-icon svg{width:20px;height:20px;color:#E11D48}
+.contact-label{font-size:12px;color:#6B7280;text-transform:uppercase;letter-spacing:1px}
+.contact-value{font-size:16px;font-weight:600;margin-top:2px}
+.contact-socials{display:flex;gap:12px;margin-top:8px}
+.contact-social{width:44px;height:44px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.contact-social:hover{background:rgba(225,29,72,0.1);border-color:rgba(225,29,72,0.3)}
+.contact-social svg{width:18px;height:18px;color:#9CA3AF}
+.contact-map{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;height:400px;position:relative}
+.contact-map iframe{width:100%;height:100%;border:none;filter:grayscale(100%) invert(90%)}
+
+/* FOOTER */
+footer{padding:60px 24px 32px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand img{height:56px;border-radius:8px;margin-bottom:16px}
+.footer-brand p{font-size:14px;color:#6B7280;line-height:1.7}
+.footer-title{font-size:14px;font-weight:700;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-links a{font-size:14px;color:#6B7280;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-bottom p{font-size:13px;color:#374151}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+.services-grid{grid-template-columns:repeat(2,1fr)}
+.menu-grid{grid-template-columns:repeat(2,1fr)}
+.gaming-grid{grid-template-columns:repeat(2,1fr)}
+.footer-grid{grid-template-columns:1fr 1fr}
+.contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+.hero h1{font-size:40px}
+.services-grid{grid-template-columns:1fr}
+.menu-grid{grid-template-columns:1fr}
+.gaming-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+.nav-links{display:none}
+.section{padding:64px 24px}
+.contact-map{height:280px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="nav-logo">
+<img src="logo-the-canteens.jpg" alt="The Canteen's">
+</div>
+<ul class="nav-links">
+<li><a href="#accueil" class="active">Accueil</a></li>
+<li><a href="#services">Nos Univers</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#gaming">Game Room</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="nav-cta">
+<a href="#menu" class="btn btn-outline">Commander en ligne</a>
+<a href="index-admin.html" class="btn btn-primary">Espace Manager</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+<div class="hero-bg">
+<img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920&q=80" alt="The Canteen's Lounge">
+</div>
+<div class="hero-content">
+<img src="logo-the-canteens.jpg" alt="The Canteen's" class="hero-logo">
+<h1>Plus qu'un repas,<br>une <span>experience</span>.</h1>
+<p class="hero-sub">Restaurant · Bar · Lounge · Game Room</p>
+<p class="hero-desc">Decouvrez l'univers unique du Canteen a Yaounde. Une experience gastronomique alliee a un espace lounge feutre et une salle de jeux dernier cri.</p>
+<div class="hero-cta">
+<a href="#services" class="btn btn-primary btn-lg">Explorer nos univers</a>
+<a href="#menu" class="btn btn-outline btn-lg">Commander en ligne</a>
+</div>
+</div>
+<div class="scroll-ind">
+<span>Decouvrir</span>
+<div class="scroll-dot"></div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+<div class="container">
+<div class="section-header">
+<div class="section-tag">Nos Univers</div>
+<h2 class="section-title">Un seul lieu, mille possibilites</h2>
+<p class="section-desc">Explorez chaque espace du Canteen et trouvez celui qui vous correspond.</p>
+</div>
+<div class="services-grid">
+<!-- RESTAURANT -->
+<div class="service-card">
+<div class="service-img">
+<img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Restaurant">
+<div class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>
+</div>
+</div>
+<div class="service-body">
+<div class="service-sub">Restauration</div>
+<div class="service-name">Restaurant</div>
+<p class="service-desc">Une cuisine raffinee melant saveurs locales et internationales, preparee par nos chefs avec des produits frais du marche.</p>
+<a href="#menu" class="service-link">Voir le menu <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+</div>
+<!-- BAR -->
+<div class="service-card">
+<div class="service-img">
+<img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=80" alt="Bar & Lounge">
+<div class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21h6m-3-4v4M7.5 3h9L21 8H3L7.5 3zM4 8h16v2a4 4 0 01-4 4H8a4 4 0 01-4-4V8z"/></svg>
+</div>
+</div>
+<div class="service-body">
+<div class="service-sub">Ambiance</div>
+<div class="service-name">Bar & Lounge</div>
+<p class="service-desc">Cocktails signatures, musique soigneusement selectionnee et une atmosphere feutree pour vos soirees entre amis ou en couple.</p>
+<a href="#menu" class="service-link">Voir la carte <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+</div>
+<!-- GAMING -->
+<div class="service-card">
+<div class="service-img">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80" alt="Game Room">
+<div class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 5v2M9 5v2M15 11v2M9 11v2M15 17v2M9 17v2M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14l4-4h10a2 2 0 002-2z"/></svg>
+</div>
+</div>
+<div class="service-body">
+<div class="service-sub">Divertissement</div>
+<div class="service-name">Game Room</div>
+<p class="service-desc">VR Infinite Battle, Boxer Game, Darts, Billard... Une salle de jeux dernier cri pour les petits et les grands. Play and Chill !</p>
+<a href="#gaming" class="service-link">Voir les tarifs <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+</div>
+<!-- EVENTS -->
+<div class="service-card">
+<div class="service-img">
+<img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" alt="Events">
+<div class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zM16 2v4M8 2v4M3 10h18"/></svg>
+</div>
+</div>
+<div class="service-body">
+<div class="service-sub">Soirees</div>
+<div class="service-name">Evenements</div>
+<p class="service-desc">Soirees a theme, diffusion des grands matchs, concerts live et evenements prives. Le Canteen est le lieu ou il se passe toujours quelque chose.</p>
+<a href="#contact" class="service-link">Reserver <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MENU -->
+<section class="section" id="menu" style="border-top:1px solid rgba(255,255,255,0.06)">
+<div class="container">
+<div class="section-header">
+<div class="section-tag">Notre Carte</div>
+<h2 class="section-title">Une cuisine qui raconte une histoire</h2>
+<p class="section-desc">Des produits frais, des recettes authentiques et une presentation soignee pour le plus grand plaisir de vos papilles.</p>
+</div>
+<div class="menu-tabs">
+<button class="menu-tab active">Entrees</button>
+<button class="menu-tab">Plats</button>
+<button class="menu-tab">Grillades</button>
+<button class="menu-tab">Cocktails</button>
+<button class="menu-tab">Desserts</button>
+</div>
+<div class="menu-grid">
+<div class="menu-card">
+<div class="menu-img">
+<img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80" alt="Salade Cesar">
+</div>
+<div class="menu-info">
+<div class="menu-name">Salade Cesar</div>
+<p class="menu-desc">Poulet grille, croutons, parmesan, sauce caesar maison</p>
+<div class="menu-bottom">
+<div class="menu-price">5.000 F</div>
+<button class="menu-add">+</button>
+</div>
+</div>
+</div>
+<div class="menu-card">
+<div class="menu-img">
+<img src="https://images.unsplash.com/photo-1606509026396-52e5d6c44e36?w=400&q=80" alt="Brochettes">
+<span class="menu-badge">Populaire</span>
+</div>
+<div class="menu-info">
+<div class="menu-name">Brochettes Mixtes</div>
+<p class="menu-desc">Boeuf, poulet et merguez grille au feu de bois</p>
+<div class="menu-bottom">
+<div class="menu-price">8.000 F</div>
+<button class="menu-add">+</button>
+</div>
+</div>
+</div>
+<div class="menu-card">
+<div class="menu-img">
+<img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&q=80" alt="Poisson braise">
+</div>
+<div class="menu-info">
+<div class="menu-name">Poisson Braise</div>
+<p class="menu-desc">Sole braise accompagnee de banane plantain et alloco</p>
+<div class="menu-bottom">
+<div class="menu-price">12.000 F</div>
+<button class="menu-add">+</button>
+</div>
+</div>
+</div>
+<div class="menu-card">
+<div class="menu-img">
+<img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80" alt="Cocktail">
+<span class="menu-badge">Signature</span>
+</div>
+<div class="menu-info">
+<div class="menu-name">Canteen Sunset</div>
+<p class="menu-desc">Rhum ambre, fruit de la passion, citron vert, sirop de grenadine</p>
+<div class="menu-bottom">
+<div class="menu-price">6.500 F</div>
+<button class="menu-add">+</button>
+</div>
+</div>
+</div>
+<div class="menu-card">
+<div class="menu-img">
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Assiette de viande">
+<span class="menu-badge">Nouveau</span>
+</div>
+<div class="menu-info">
+<div class="menu-name">Assiette du Canteen</div>
+<p class="menu-desc">Selection de viandes grillees avec legumes de saison</p>
+<div class="menu-bottom">
+<div class="menu-price">15.000 F</div>
+<button class="menu-add">+</button>
+</div>
+</div>
+</div>
+<div class="menu-card">
+<div class="menu-img">
+<img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&q=80" alt="Dessert">
+</div>
+<div class="menu-info">
+<div class="menu-name">Tiramisu Maison</div>
+<p class="menu-desc">Cafe, mascarpone, cacao amer, biscuits a la cuillere</p>
+<div class="menu-bottom">
+<div class="menu-price">4.500 F</div>
+<button class="menu-add">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- GAMING -->
+<section class="section" id="gaming" style="border-top:1px solid rgba(255,255,255,0.06)">
+<div class="container">
+<div class="section-header">
+<div class="section-tag">Game Room</div>
+<h2 class="section-title">Play and Chill</h2>
+<p class="section-desc">Une salle de jeux equipee avec les meilleures machines. VR, billard, darts, boxing... Defiez vos amis !</p>
+</div>
+<div class="gaming-grid">
+<div class="gaming-card">
+<div class="gaming-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/></svg>
+</div>
+<div class="gaming-name">VR Infinite Battle</div>
+<p class="gaming-desc">Plongez dans des batailles virtuelles immersives. Equipement haut de gamme avec casque VR et plateforme de mouvement.</p>
+<div class="gaming-price">3.000 F <span>/ 10 min</span></div>
+<div style="margin-top:8px;font-size:13px;color:#6B7280">5.000 F / 15 min</div>
+<div class="gaming-dispo">
+<span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+Disponible
+</div>
+<button class="gaming-btn">Reserver</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+</div>
+<div class="gaming-name">Darts Electronique</div>
+<p class="gaming-desc">Cible electronique professionnelle avec comptage automatique. Plusieurs modes de jeu disponibles pour 1 a 4 joueurs.</p>
+<div class="gaming-price">1.000 F <span>/ partie</span></div>
+<div class="gaming-dispo">
+<span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+Disponible
+</div>
+<button class="gaming-btn">Reserver</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M6 14h.01M18 10h.01M18 14h.01"/></svg>
+</div>
+<div class="gaming-name">Billard</div>
+<p class="gaming-desc">Table professionnelle de billard americain. Queues et billes fournies. Ambiance feutree avec eclairage dedie.</p>
+<div class="gaming-price">2.500 F <span>/ partie</span></div>
+<div class="gaming-dispo">
+<span style="width:8px;height:8px;background:#F59E0B;border-radius:50%;"></span>
+1 table occupee
+</div>
+<button class="gaming-btn">Reserver</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+</div>
+<div class="gaming-name">Boxer Game</div>
+<p class="gaming-desc">Testez votre force au punching ball electronique. Scores enregistres, classement des champions du Canteen !</p>
+<div class="gaming-price">1.000 F <span>/ 3 coups</span></div>
+<div class="gaming-dispo">
+<span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+Disponible
+</div>
+<button class="gaming-btn">Reserver</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+</div>
+<div class="gaming-name">VR Power</div>
+<p class="gaming-desc">Experience VR courte mais intense. Ideal pour decouvrir la realite virtuelle sans se ruiner.</p>
+<div class="gaming-price">1.500 F <span>/ 3-6 min</span></div>
+<div style="margin-top:8px;font-size:13px;color:#6B7280">3.000 F / 7-9 min</div>
+<div class="gaming-dispo">
+<span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+Disponible
+</div>
+<button class="gaming-btn">Reserver</button>
+</div>
+<div class="gaming-card" style="background:linear-gradient(135deg,rgba(225,29,72,0.1),rgba(139,92,246,0.1));border-color:rgba(225,29,72,0.2)">
+<div class="gaming-icon" style="background:linear-gradient(135deg,rgba(225,29,72,0.2),rgba(139,92,246,0.2))">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+</div>
+<div class="gaming-name">Pack Anniversaire</div>
+<p class="gaming-desc">2h de jeux illimites + buffet + 1 cocktail/personne. Le combo parfait pour feter votre journee speciale au Canteen.</p>
+<div class="gaming-price">25.000 F <span>/ personne</span></div>
+<div class="gaming-dispo">
+<span style="width:8px;height:8px;background:#8B5CF6;border-radius:50%;"></span>
+Sur reservation
+</div>
+<button class="gaming-btn">Reserver</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="border-top:1px solid rgba(255,255,255,0.06)">
+<div class="container">
+<div class="section-header">
+<div class="section-tag">Nous Trouver</div>
+<h2 class="section-title">Venez nous rendre visite</h2>
+<p class="section-desc">The Canteen vous attend a Yaounde pour une experience inoubliable.</p>
+</div>
+<div class="contact-grid">
+<div class="contact-info">
+<div class="contact-item">
+<div class="contact-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+</div>
+<div>
+<div class="contact-label">Adresse</div>
+<div class="contact-value">Route Sans Nom, Yaounde, Cameroun</div>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+</div>
+<div>
+<div class="contact-label">Telephone</div>
+<div class="contact-value">+237 692 677 519 / +237 677 138 318</div>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+<div>
+<div class="contact-label">Horaires</div>
+<div class="contact-value">Lun - Dim : 10h00 - 02h00</div>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+</div>
+<div>
+<div class="contact-label">WhatsApp</div>
+<div class="contact-value">+237 699 999 886</div>
+</div>
+</div>
+<div class="contact-socials">
+<a href="#" class="contact-social" title="Instagram">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+</a>
+<a href="#" class="contact-social" title="Facebook">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+</a>
+<a href="#" class="contact-social" title="TikTok">
+<svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.88-2.88 2.89 2.89 0 012.88-2.88c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0012.24-2.18V9.48a8.28 8.28 0 005.2 1.83v-3.5a4.85 4.85 0 01-1-.12z"/></svg>
+</a>
+<a href="#" class="contact-social" title="TripAdvisor">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+</a>
+</div>
+</div>
+<div class="contact-map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15922.518953762153!2d11.5166!3d3.848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwNTAnNTIuOCJOIDExwrAzMScwMC4wIkU!5e0!3m2!1sfr!2scm!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img src="logo-the-canteens.jpg" alt="The Canteen's">
+<p>Plus qu'un restaurant, un lieu de vie. The Canteen allie gastronomie, lounge et gaming dans un cadre unique a Yaounde.</p>
+</div>
+<div>
+<div class="footer-title">Navigation</div>
+<ul class="footer-links">
+<li><a href="#accueil">Accueil</a></li>
+<li><a href="#services">Nos Univers</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#gaming">Game Room</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+<div>
+<div class="footer-title">Services</div>
+<ul class="footer-links">
+<li><a href="#menu">Restaurant</a></li>
+<li><a href="#menu">Bar & Lounge</a></li>
+<li><a href="#gaming">Game Room</a></li>
+<li><a href="#contact">Evenements</a></li>
+<li><a href="#">Reservation</a></li>
+</ul>
+</div>
+<div>
+<div class="footer-title">Contact</div>
+<ul class="footer-links">
+<li><a href="#">+237 692 677 519</a></li>
+<li><a href="#">+237 677 138 318</a></li>
+<li><a href="#">contact@thecanteens.cm</a></li>
+<li><a href="#">Yaounde, Cameroun</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p> 2025 The Canteen's. Tous droits reserves.</p>
+<p>Propulse par Ordely</p>
+</div>
+</div>
+</footer>
+
+<script>
+// Menu tabs
+document.querySelectorAll('.menu-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// Nav active
+document.querySelectorAll('.nav-links a').forEach(link=>{
+  link.addEventListener('click',(e)=>{
+    document.querySelectorAll('.nav-links a').forEach(l=>l.classList.remove('active'));
+    e.target.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Canteen's — Restaurant · Bar · Lounge · Game Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{cursor:pointer;font-family:inherit;border:none;outline:none;background:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#E11D48;border-radius:3px}
+
+/* === NAV === */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:72px;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:48px;width:auto;border-radius:8px}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:#9CA3AF;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;transition:all .2s}
+.btn-primary{background:#E11D48;color:#fff}
+.btn-primary:hover{background:#c4173a;transform:scale(1.02)}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2)}
+.btn-outline:hover{background:rgba(255,255,255,0.05)}
+
+/* === HERO === */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.5}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.8) 60%,#000 100%)}
+.hero-content{position:relative;z-index:1;text-align:center;padding:0 24px;max-width:700px;margin-top:40px}
+.hero-logo{width:140px;height:140px;object-fit:cover;border-radius:20px;margin:0 auto 28px;box-shadow:0 20px 60px rgba(225,29,72,0.25)}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:700;line-height:1.1;letter-spacing:-2px}
+.hero h1 span{color:#E11D48}
+.hero-sub{font-size:18px;color:#9CA3AF;margin-top:14px;font-weight:300}
+.hero-desc{font-size:15px;color:#6B7280;margin-top:16px;line-height:1.7}
+.hero-cta{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:36px;flex-wrap:wrap}
+.btn-lg{padding:16px 32px;border-radius:12px;font-size:15px}
+.scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-ind span{font-size:10px;text-transform:uppercase;letter-spacing:4px;color:#6B7280}
+.scroll-dot{width:24px;height:40px;border:2px solid rgba(255,255,255,0.15);border-radius:12px;display:flex;justify-content:center;padding-top:6px}
+.scroll-dot::after{content:'';width:5px;height:5px;background:#E11D48;border-radius:50%;animation:scrollBounce 2s infinite}
+@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px);opacity:.3}}
+
+/* === SEARCH BAR === */
+.search-section{padding:60px 24px 20px;background:#000}
+.search-container{max-width:600px;margin:0 auto;position:relative}
+.search-input{width:100%;padding:16px 24px 16px 52px;border-radius:14px;font-size:15px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;transition:all .2s}
+.search-input:focus{border-color:#E11D48;background:rgba(255,255,255,0.06);outline:none}
+.search-input::placeholder{color:#6B7280}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#6B7280}
+.search-tags{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.search-tag{font-size:12px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#9CA3AF;cursor:pointer;transition:all .2s}
+.search-tag:hover{background:rgba(225,29,72,0.1);border-color:rgba(225,29,72,0.3);color:#fff}
+
+/* === CAROUSEL SERVICES === */
+.carousel-section{padding:60px 24px;background:#000}
+.carousel-header{text-align:center;margin-bottom:48px}
+.carousel-tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#E11D48;margin-bottom:12px}
+.carousel-title{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700}
+.carousel-desc{font-size:16px;color:#6B7280;margin-top:12px}
+
+.carousel-wrapper{position:relative;max-width:1200px;margin:0 auto}
+.carousel-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:8px 4px 24px;-webkit-overflow-scrolling:touch}
+.carousel-track::-webkit-scrollbar{height:4px}
+.carousel-track::-webkit-scrollbar-track{background:rgba(255,255,255,0.03);border-radius:2px}
+.carousel-track::-webkit-scrollbar-thumb{background:rgba(225,29,72,0.4);border-radius:2px}
+.carousel-card{flex:0 0 340px;scroll-snap-align:start;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;transition:all .3s}
+.carousel-card:hover{border-color:rgba(225,29,72,0.25);transform:translateY(-4px);box-shadow:0 16px 48px rgba(225,29,72,0.08)}
+.carousel-img{height:200px;overflow:hidden;position:relative}
+.carousel-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.carousel-card:hover .carousel-img img{transform:scale(1.08)}
+.carousel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%)}
+.carousel-icon{position:absolute;top:16px;left:16px;width:44px;height:44px;background:rgba(225,29,72,0.9);backdrop-filter:blur(10px);border-radius:12px;display:flex;align-items:center;justify-content:center;z-index:2}
+.carousel-icon svg{width:22px;height:22px;color:#fff}
+.carousel-body{padding:22px}
+.carousel-name{font-size:20px;font-weight:700;margin-bottom:6px}
+.carousel-body>p{font-size:13px;color:#6B7280;line-height:1.6;margin-bottom:16px}
+.carousel-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#E11D48;color:#fff;border-radius:10px;font-size:13px;font-weight:600;transition:all .2s}
+.carousel-btn:hover{background:#c4173a;gap:12px}
+
+/* === DYNAMIC SERVICE PAGES === */
+.service-page{display:none;padding:80px 24px 60px;background:#000;min-height:100vh}
+.service-page.active{display:block}
+.service-page-header{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto 40px}
+.service-page-title{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700}
+.back-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#9CA3AF;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.back-btn:hover{background:rgba(255,255,255,0.08);color:#fff}
+
+/* Sub-nav for categories */
+.sub-nav{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;max-width:1100px;margin-left:auto;margin-right:auto}
+.sub-nav-btn{padding:10px 22px;border-radius:999px;font-size:13px;font-weight:600;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#9CA3AF;cursor:pointer;transition:all .2s}
+.sub-nav-btn:hover{background:rgba(255,255,255,0.08);color:#fff}
+.sub-nav-btn.active{background:#E11D48;color:#fff;border-color:#E11D48}
+
+/* Product grid */
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.product-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;transition:all .2s}
+.product-card:hover{border-color:rgba(255,255,255,0.15)}
+.product-img{height:160px;overflow:hidden;position:relative}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.product-badge{position:absolute;top:10px;left:10px;background:#E11D48;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px}
+.product-info{padding:16px}
+.product-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.product-desc{font-size:12px;color:#6B7280;line-height:1.5;margin-bottom:12px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#E11D48}
+.product-add{width:32px;height:32px;background:#E11D48;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s}
+.product-add:hover{background:#c4173a;transform:scale(1.1)}
+
+/* Gaming grid */
+.gaming-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.gaming-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;text-align:center;transition:all .2s}
+.gaming-card:hover{border-color:rgba(225,29,72,0.2)}
+.gaming-icon{width:56px;height:56px;background:rgba(225,29,72,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.gaming-icon svg{width:26px;height:26px;color:#E11D48}
+.gaming-name{font-size:17px;font-weight:700;margin-bottom:6px}
+.gaming-desc{font-size:13px;color:#6B7280;margin-bottom:16px;line-height:1.5}
+.gaming-price{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#E11D48}
+.gaming-price span{font-size:13px;color:#6B7280;font-weight:400}
+.gaming-dispo{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;padding:5px 12px;border-radius:999px}
+.gaming-dispo.green{background:rgba(16,185,129,0.1);color:#10B981}
+.gaming-dispo.orange{background:rgba(245,158,11,0.1);color:#F59E0B}
+
+/* === CART BAR === */
+.cart-bar{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(200px);z-index:900;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 24px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 32px rgba(0,0,0,0.5);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.cart-bar.show{transform:translateX(-50%) translateY(0)}
+.cart-info{display:flex;align-items:center;gap:8px}
+.cart-count{background:#E11D48;color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cart-text{font-size:13px;color:#D1D5DB}
+.cart-total{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#E11D48}
+.cart-actions{display:flex;gap:8px}
+.cart-btn-clear{padding:8px 14px;font-size:12px;color:#9CA3AF;background:rgba(255,255,255,0.05);border-radius:8px;cursor:pointer}
+.cart-btn-whatsapp{display:flex;align-items:center;gap:8px;padding:10px 20px;background:#25D366;color:#fff;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.cart-btn-whatsapp:hover{background:#1fa850}
+
+/* === WHATSAPP FAB === */
+.whatsapp-fab{position:fixed;bottom:28px;right:28px;z-index:1000;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all .3s;cursor:pointer}
+.whatsapp-fab:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.5)}
+.whatsapp-fab svg{width:28px;height:28px;color:#fff}
+.whatsapp-tooltip{position:absolute;bottom:70px;right:0;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);padding:10px 16px;border-radius:10px;font-size:12px;color:#D1D5DB;white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none}
+.whatsapp-fab:hover .whatsapp-tooltip{opacity:1}
+
+/* === CONTACT === */
+.contact-section{padding:80px 24px;border-top:1px solid rgba(255,255,255,0.06)}
+.contact-container{max-width:1100px;margin:0 auto}
+.contact-header{text-align:center;margin-bottom:48px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.contact-item{display:flex;align-items:center;gap:14px}
+.contact-icon{width:44px;height:44px;background:rgba(255,255,255,0.04);border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.06)}
+.contact-icon svg{width:18px;height:18px;color:#E11D48}
+.contact-label{font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:1px}
+.contact-value{font-size:15px;font-weight:600;margin-top:2px}
+.contact-socials{display:flex;gap:10px;margin-top:8px}
+.contact-social{width:40px;height:40px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.contact-social:hover{background:rgba(225,29,72,0.1);border-color:rgba(225,29,72,0.3)}
+.contact-social svg{width:16px;height:16px;color:#9CA3AF}
+.contact-map{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;height:360px}
+.contact-map iframe{width:100%;height:100%;border:none;filter:grayscale(100%) invert(90%)}
+
+/* === FOOTER === */
+.footer{padding:48px 24px 28px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-container{max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-brand img{height:52px;border-radius:8px;margin-bottom:14px}
+.footer-brand p{font-size:13px;color:#6B7280;line-height:1.7}
+.footer-title{font-size:13px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:#6B7280;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-bottom p{font-size:12px;color:#374151}
+
+/* === RESPONSIVE === */
+@media(max-width:1024px){
+.product-grid,.gaming-grid{grid-template-columns:repeat(2,1fr)}
+.contact-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr 1fr}
+.carousel-card{flex:0 0 300px}
+}
+@media(max-width:768px){
+.hero h1{font-size:36px}
+.nav-links{display:none}
+.product-grid,.gaming-grid{grid-template-columns:1fr}
+.carousel-card{flex:0 0 280px}
+.footer-grid{grid-template-columns:1fr}
+.gaming-grid{grid-template-columns:1fr}
+.contact-map{height:280px}
+.service-page-header{flex-direction:column;gap:16px;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav>
+<div class="nav-logo">
+<img src="logo-the-canteens.jpg" alt="The Canteen's">
+</div>
+<ul class="nav-links">
+<li><a href="#accueil">Accueil</a></li>
+<li><a href="#services">Nos Univers</a></li>
+<li><a href="#recherche">Rechercher</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="nav-cta">
+<a href="#recherche" class="btn btn-outline">Commander en ligne</a>
+</div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="accueil">
+<div class="hero-bg">
+<img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920&q=80" alt="The Canteen's">
+</div>
+<div class="hero-content">
+<img src="logo-the-canteens.jpg" alt="The Canteen's" class="hero-logo">
+<h1>Plus qu'un repas,<br>une <span>experience</span>.</h1>
+<p class="hero-sub">Restaurant · Bar · Lounge · Game Room</p>
+<p class="hero-desc">Decouvrez l'univers unique du Canteen a Yaounde. Gastronomie, cocktails et jeux dans un seul lieu.</p>
+<div class="hero-cta">
+<a href="#services" class="btn btn-primary btn-lg">Explorer nos univers</a>
+<a href="https://wa.me/237671313694?text=Bonjour%20The%20Canteen's%2C%20je%20voudrais%20faire%20une%20reservation" target="_blank" class="btn btn-outline btn-lg" style="display:flex;align-items:center;gap:8px">
+<svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Reserver via WhatsApp
+</a>
+</div>
+</div>
+<div class="scroll-ind">
+<span>Decouvrir</span>
+<div class="scroll-dot"></div>
+</div>
+</section>
+
+<!-- ==================== BARRE DE RECHERCHE ==================== -->
+<section class="search-section" id="recherche">
+<div class="search-container">
+<svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input type="text" class="search-input" placeholder="Rechercher un plat, un cocktail, un jeu..." id="searchInput">
+</div>
+<div class="search-tags">
+<span class="search-tag" onclick="showService('restaurant')">Grillades</span>
+<span class="search-tag" onclick="showService('bar')">Cocktails</span>
+<span class="search-tag" onclick="showService('lounge')">Lounge</span>
+<span class="search-tag" onclick="showService('gaming')">Game Room</span>
+</div>
+</section>
+
+<!-- ==================== CAROUSEL SERVICES ==================== -->
+<section class="carousel-section" id="services">
+<div class="carousel-header">
+<div class="carousel-tag">Nos Univers</div>
+<h2 class="carousel-title">Un seul lieu, mille possibilites</h2>
+<p class="carousel-desc">Faites defiler pour decouvrir chaque univers du Canteen</p>
+</div>
+<div class="carousel-wrapper">
+<div class="carousel-track">
+
+<!-- RESTAURANT -->
+<div class="carousel-card">
+<div class="carousel-img">
+<img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Restaurant">
+<div class="carousel-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></div>
+</div>
+<div class="carousel-body">
+<div class="carousel-name">Restauration</div>
+<p>Grillades au feu de bois, poisson braisé, spécialités locales et internationales préparées par nos chefs.</p>
+<button class="carousel-btn" onclick="showService('restaurant')">En savoir plus <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+</div>
+</div>
+
+<!-- BAR -->
+<div class="carousel-card">
+<div class="carousel-img">
+<img src="https://i.ibb.co/xRrP67V/32968574-b498-40c1-bd78-1e3514e7778a.jpg" alt="Bar">
+<div class="carousel-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96.44 2.5 2.5 0 01-2.96-3.08 3 3 0 01-.34-5.58 2.5 2.5 0 01-2.96-3.08A4.49 4.49 0 012.5 4.5 2.5 2.5 0 015 2h4.5zM15 2a2.5 2.5 0 012.5 2.5c0 .65-.26 1.24-.68 1.68A4.49 4.49 0 0019.5 10.5 2.5 2.5 0 0122 13a2.5 2.5 0 01-2.96 3.08 3 3 0 01-.34 5.58 2.5 2.5 0 01-2.96 3.08A2.5 2.5 0 0112 19.5v-15A2.5 2.5 0 0115 2z"/></svg></div>
+</div>
+<div class="carousel-body">
+<div class="carousel-name">Bar</div>
+<p>Cocktails signatures, spiritueux premium, bières fraîches et une carte des vins soigneusement sélectionnée.</p>
+<button class="carousel-btn" onclick="showService('bar')">En savoir plus <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+</div>
+</div>
+
+<!-- LOUNGE -->
+<div class="carousel-card">
+<div class="carousel-img">
+<img src="https://i.ibb.co/7JhtfyJF/dc757f32-f880-4cc5-ab62-b23c3e2441ba.jpg" alt="Lounge">
+<div class="carousel-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 20a2 2 0 002 2h16a2 2 0 002-2V8l-7 5V8l-7 5V4a2 2 0 00-2-2H4a2 2 0 00-2 2z"/><path d="M17 8v13"/></svg></div>
+</div>
+<div class="carousel-body">
+<div class="carousel-name">Lounge</div>
+<p>Ambiance feutrée, musique live, soirées thématiques et un espace détente pour vos moments entre amis.</p>
+<button class="carousel-btn" onclick="showService('lounge')">En savoir plus <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+</div>
+</div>
+
+<!-- GAME ROOM -->
+<div class="carousel-card">
+<div class="carousel-img">
+<img src="https://i.ibb.co/prjg305W/70d94219-3da7-4dcd-846f-c82091ec1636.jpg" alt="Game Room">
+<div class="carousel-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 5v2M9 5v2M15 11v2M9 11v2M15 17v2M9 17v2M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14l4-4h10a2 2 0 002-2z"/></svg></div>
+</div>
+<div class="carousel-body">
+<div class="carousel-name">Game Room</div>
+<p>VR Infinite Battle, Boxer Game, Darts, Billard... Play and Chill ! Des jeux pour tous les âges et tous les goûts.</p>
+<button class="carousel-btn" onclick="showService('gaming')">En savoir plus <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ==================== DYNAMIC: RESTAURANT ==================== -->
+<div class="service-page" id="page-restaurant">
+<div class="service-page-header">
+<div>
+<h2 class="service-page-title">Restauration</h2>
+<p style="color:#6B7280;margin-top:4px">Nos grillades et spécialités préparées au feu de bois</p>
+</div>
+<button class="back-btn" onclick="goHome()">← Retour</button>
+</div>
+<div class="sub-nav">
+<button class="sub-nav-btn active">Tous</button>
+<button class="sub-nav-btn">Entrées</button>
+<button class="sub-nav-btn">Grillades</button>
+<button class="sub-nav-btn">Plats</button>
+<button class="sub-nav-btn">Desserts</button>
+</div>
+<div class="product-grid">
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80" alt="Salade Cesar">
+</div>
+<div class="product-info">
+<div class="product-name">Salade Cesar</div>
+<p class="product-desc">Poulet grillé, croutons, parmesan</p>
+<div class="product-bottom">
+<div class="product-price">5.000 F</div>
+<button class="product-add" onclick="addToCart('Salade Cesar',5000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" alt="Brochettes">
+<span class="product-badge">Populaire</span>
+</div>
+<div class="product-info">
+<div class="product-name">Brochettes Mixtes</div>
+<p class="product-desc">Boeuf, poulet, merguez grillés</p>
+<div class="product-bottom">
+<div class="product-price">8.000 F</div>
+<button class="product-add" onclick="addToCart('Brochettes Mixtes',8000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&q=80" alt="Poisson braisé">
+</div>
+<div class="product-info">
+<div class="product-name">Poisson Braisé</div>
+<p class="product-desc">Sole, banane plantain, alloco</p>
+<div class="product-bottom">
+<div class="product-price">12.000 F</div>
+<button class="product-add" onclick="addToCart('Poisson Braisé',12000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Assiette">
+<span class="product-badge">Nouveau</span>
+</div>
+<div class="product-info">
+<div class="product-name">Assiette du Canteen</div>
+<p class="product-desc">Selection de viandes grillées</p>
+<div class="product-bottom">
+<div class="product-price">15.000 F</div>
+<button class="product-add" onclick="addToCart('Assiette du Canteen',15000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&q=80" alt="Saucisses">
+</div>
+<div class="product-info">
+<div class="product-name">Saucisses Grillées</div>
+<p class="product-desc">Saucisses de volaille, frites</p>
+<div class="product-bottom">
+<div class="product-price">6.000 F</div>
+<button class="product-add" onclick="addToCart('Saucisses Grillées',6000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&q=80" alt="Tiramisu">
+</div>
+<div class="product-info">
+<div class="product-name">Tiramisu Maison</div>
+<p class="product-desc">Café, mascarpone, cacao</p>
+<div class="product-bottom">
+<div class="product-price">4.500 F</div>
+<button class="product-add" onclick="addToCart('Tiramisu Maison',4500)">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== DYNAMIC: BAR ==================== -->
+<div class="service-page" id="page-bar">
+<div class="service-page-header">
+<div>
+<h2 class="service-page-title">Le Bar</h2>
+<p style="color:#6B7280;margin-top:4px">Cocktails signatures et boissons premium</p>
+</div>
+<button class="back-btn" onclick="goHome()">← Retour</button>
+</div>
+<div class="sub-nav">
+<button class="sub-nav-btn active">Cocktails</button>
+<button class="sub-nav-btn">Vins</button>
+<button class="sub-nav-btn">Bières</button>
+<button class="sub-nav-btn">Softs</button>
+</div>
+<div class="product-grid">
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80" alt="Cocktail">
+<span class="product-badge">Signature</span>
+</div>
+<div class="product-info">
+<div class="product-name">Canteen Sunset</div>
+<p class="product-desc">Rhum ambre, fruit passion, citron vert</p>
+<div class="product-bottom">
+<div class="product-price">6.500 F</div>
+<button class="product-add" onclick="addToCart('Canteen Sunset',6500)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1536935338788-843bb5986e8f?w=400&q=80" alt="Mojito">
+</div>
+<div class="product-info">
+<div class="product-name">Mojito Royal</div>
+<p class="product-desc">Rhum blanc, menthe fraîche, citron</p>
+<div class="product-bottom">
+<div class="product-price">5.000 F</div>
+<button class="product-add" onclick="addToCart('Mojito Royal',5000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80" alt="Vin">
+</div>
+<div class="product-info">
+<div class="product-name">Vin Rouge</div>
+<p class="product-desc">Cabernet Sauvignon, bouquet intense</p>
+<div class="product-bottom">
+<div class="product-price">8.000 F</div>
+<button class="product-add" onclick="addToCart('Vin Rouge',8000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&q=80" alt="Bière">
+</div>
+<div class="product-info">
+<div class="product-name">Bière Importée</div>
+<p class="product-desc">Heineken, Corona, Desperados</p>
+<div class="product-bottom">
+<div class="product-price">2.500 F</div>
+<button class="product-add" onclick="addToCart('Bière Importée',2500)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=400&q=80" alt="Smoothie">
+</div>
+<div class="product-info">
+<div class="product-name">Smoothie Tropical</div>
+<p class="product-desc">Mangue, ananas, banane, lait de coco</p>
+<div class="product-bottom">
+<div class="product-price">3.500 F</div>
+<button class="product-add" onclick="addToCart('Smoothie Tropical',3500)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" alt="Whisky">
+<span class="product-badge">VIP</span>
+</div>
+<div class="product-info">
+<div class="product-name">Whisky Premium</div>
+<p class="product-desc">Jack Daniel's, Jameson, Ballantine's</p>
+<div class="product-bottom">
+<div class="product-price">12.000 F</div>
+<button class="product-add" onclick="addToCart('Whisky Premium',12000)">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== DYNAMIC: LOUNGE ==================== -->
+<div class="service-page" id="page-lounge">
+<div class="service-page-header">
+<div>
+<h2 class="service-page-title">Le Lounge</h2>
+<p style="color:#6B7280;margin-top:4px">Ambiance feutrée, musique et soirées thématiques</p>
+</div>
+<button class="back-btn" onclick="goHome()">← Retour</button>
+</div>
+<div class="sub-nav">
+<button class="sub-nav-btn active">Ambiance</button>
+<button class="sub-nav-btn">Soirées</button>
+<button class="sub-nav-btn">Privatisation</button>
+</div>
+<div class="product-grid">
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=400&q=80" alt="Lounge">
+<span class="product-badge">Ambiance</span>
+</div>
+<div class="product-info">
+<div class="product-name">Afterwork Lounge</div>
+<p class="product-desc">Du mardi au vendredi, 18h-22h. Happy hour cocktails à -30%.</p>
+<div class="product-bottom">
+<div class="product-price">Gratuit</div>
+<button class="product-add" onclick="addToCart('Afterwork Lounge',0)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://i.ibb.co/7JhtfyJF/dc757f32-f880-4cc5-ab62-b23c3e2441ba.jpg" alt="Soirée">
+<span class="product-badge">Soirée</span>
+</div>
+<div class="product-info">
+<div class="product-name">Soirée Live Samedi</div>
+<p class="product-desc">Concert live, DJ set, ambiance garantie. Entrée libre.</p>
+<div class="product-bottom">
+<div class="product-price">Entrée libre</div>
+<button class="product-add" onclick="addToCart('Soirée Live Samedi',0)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://i.ibb.co/67c9kyBY/0798b81b-ee2b-490c-b0dc-19d309f61a2d.jpg" alt="Privatisation">
+<span class="product-badge">Privé</span>
+</div>
+<div class="product-info">
+<div class="product-name">Privatisation Lounge</div>
+<p class="product-desc">Espace privatisable pour 20-50 personnes. Devis sur mesure.</p>
+<div class="product-bottom">
+<div class="product-price">Sur devis</div>
+<button class="product-add" onclick="addToCart('Privatisation Lounge',0)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&q=80" alt="Karaoke">
+</div>
+<div class="product-info">
+<div class="product-name">Karaoke Night</div>
+<p class="product-desc">Tous les jeudis, 20h-minuit. Venez chanter vos hits préférés !</p>
+<div class="product-bottom">
+<div class="product-price">5.000 F</div>
+<button class="product-add" onclick="addToCart('Karaoke Night',5000)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&q=80" alt="Match">
+</div>
+<div class="product-info">
+<div class="product-name">Diffusion Grand Match</div>
+<p class="product-desc">Ecran géant, bières à 2.000 F pendant les matchs.</p>
+<div class="product-bottom">
+<div class="product-price">Entrée libre</div>
+<button class="product-add" onclick="addToCart('Diffusion Grand Match',0)">+</button>
+</div>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="https://i.ibb.co/HfqNsNvJ/d5b0bbce-a7e5-44b4-8bce-0348ced64efc.jpg" alt="Chicha">
+</div>
+<div class="product-info">
+<div class="product-name">Chicha Lounge</div>
+<p class="product-desc">Saveurs variées : pomme, menthe, fruits exotiques.</p>
+<div class="product-bottom">
+<div class="product-price">8.000 F</div>
+<button class="product-add" onclick="addToCart('Chicha Lounge',8000)">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== DYNAMIC: GAME ROOM ==================== -->
+<div class="service-page" id="page-gaming">
+<div class="service-page-header">
+<div>
+<h2 class="service-page-title">Game Room</h2>
+<p style="color:#6B7280;margin-top:4px">Play and Chill — VR, Darts, Billard et plus !</p>
+</div>
+<button class="back-btn" onclick="goHome()">← Retour</button>
+</div>
+<div class="sub-nav">
+<button class="sub-nav-btn active">Tous les jeux</button>
+<button class="sub-nav-btn">VR</button>
+<button class="sub-nav-btn">Classiques</button>
+<button class="sub-nav-btn">Packs</button>
+</div>
+<div class="gaming-grid">
+<div class="gaming-card">
+<div class="gaming-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/></svg></div>
+<div class="gaming-name">VR Infinite Battle</div>
+<p class="gaming-desc">Batailles virtuelles immersives avec casque VR haut de gamme.</p>
+<div class="gaming-price">3.000 F <span>/ 10 min</span></div>
+<div style="font-size:12px;color:#6B7280;margin-top:4px">5.000 F / 15 min</div>
+<div class="gaming-dispo green"><span style="width:6px;height:6px;border-radius:50%;background:#10B981"></span>Disponible</div>
+<button class="carousel-btn" style="margin-top:16px;width:100%;justify-content:center" onclick="addToCart('VR Infinite Battle 10min',3000)">Ajouter au panier</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+<div class="gaming-name">Darts Electronique</div>
+<p class="gaming-desc">Cible électronique pro avec comptage auto. 1 à 4 joueurs.</p>
+<div class="gaming-price">1.000 F <span>/ partie</span></div>
+<div class="gaming-dispo green"><span style="width:6px;height:6px;border-radius:50%;background:#10B981"></span>Disponible</div>
+<button class="carousel-btn" style="margin-top:16px;width:100%;justify-content:center" onclick="addToCart('Darts (1 partie)',1000)">Ajouter au panier</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M6 14h.01M18 10h.01M18 14h.01"/></svg></div>
+<div class="gaming-name">Billard Américain</div>
+<p class="gaming-desc">Table professionnelle, queues et billes fournies.</p>
+<div class="gaming-price">2.500 F <span>/ partie</span></div>
+<div class="gaming-dispo orange"><span style="width:6px;height:6px;border-radius:50%;background:#F59E0B"></span>1 table occupée</div>
+<button class="carousel-btn" style="margin-top:16px;width:100%;justify-content:center" onclick="addToCart('Billard (1 partie)',2500)">Ajouter au panier</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+<div class="gaming-name">Boxer Game</div>
+<p class="gaming-desc">Testez votre force ! Scores enregistrés, classement des champions.</p>
+<div class="gaming-price">1.000 F <span>/ 3 coups</span></div>
+<div class="gaming-dispo green"><span style="width:6px;height:6px;border-radius:50%;background:#10B981"></span>Disponible</div>
+<button class="carousel-btn" style="margin-top:16px;width:100%;justify-content:center" onclick="addToCart('Boxer Game (3 coups)',1000)">Ajouter au panier</button>
+</div>
+<div class="gaming-card">
+<div class="gaming-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div>
+<div class="gaming-name">VR Power</div>
+<p class="gaming-desc">Expérience VR courte mais intense. Idéal pour découvrir !</p>
+<div class="gaming-price">1.500 F <span>/ 3-6 min</span></div>
+<div style="font-size:12px;color:#6B7280;margin-top:4px">3.000 F / 7-9 min</div>
+<div class="gaming-dispo green"><span style="width:6px;height:6px;border-radius:50%;background:#10B981"></span>Disponible</div>
+<button class="carousel-btn" style="margin-top:16px;width:100%;justify-content:center" onclick="addToCart('VR Power (3-6min)',1500)">Ajouter au panier</button>
+</div>
+<div class="gaming-card" style="background:linear-gradient(135deg,rgba(225,29,72,0.08),rgba(139,92,246,0.08));border-color:rgba(225,29,72,0.15)">
+<div class="gaming-icon" style="background:linear-gradient(135deg,rgba(225,29,72,0.15),rgba(139,92,246,0.15))"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg></div>
+<div class="gaming-name">Pack Anniversaire</div>
+<p class="gaming-desc">2h jeux illimités + buffet + 1 cocktail. Le combo parfait !</p>
+<div class="gaming-price">25.000 F <span>/ personne</span></div>
+<div class="gaming-dispo" style="background:rgba(139,92,246,0.1);color:#8B5CF6"><span style="width:6px;height:6px;border-radius:50%;background:#8B5CF6"></span>Sur réservation</div>
+<button class="carousel-btn" style="margin-top:16px;width:100%;justify-content:center" onclick="addToCart('Pack Anniversaire',25000)">Ajouter au panier</button>
+</div>
+</div>
+</div>
+
+<!-- ==================== CONTACT ==================== -->
+<section class="contact-section" id="contact">
+<div class="contact-container">
+<div class="contact-header" style="text-align:center;margin-bottom:48px">
+<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#E11D48;margin-bottom:12px">Nous Trouver</div>
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700">Venez nous rendre visite</h2>
+<p style="font-size:16px;color:#6B7280;margin-top:12px">The Canteen vous attend a Yaounde</p>
+</div>
+<div class="contact-grid">
+<div class="contact-info">
+<div class="contact-item">
+<div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+<div><div class="contact-label">Adresse</div><div class="contact-value">Route Sans Nom, Yaounde, Cameroun</div></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+<div><div class="contact-label">Telephone</div><div class="contact-value">+237 692 677 519 / +237 677 138 318</div></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+<div><div class="contact-label">Horaires</div><div class="contact-value">Lun - Dim : 10h00 - 02h00</div></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+<div><div class="contact-label">WhatsApp</div><div class="contact-value">+237 671313694</div></div>
+</div>
+<div class="contact-socials">
+<a href="#" class="contact-social" title="Instagram"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+<a href="#" class="contact-social" title="Facebook"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+<a href="#" class="contact-social" title="TikTok"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.88-2.88 2.89 2.89 0 012.88-2.88c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0012.24-2.18V9.48a8.28 8.28 0 005.2 1.83v-3.5a4.85 4.85 0 01-1-.12z"/></svg></a>
+</div>
+</div>
+<div class="contact-map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15922.518953762153!2d11.5166!3d3.848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwNTAnNTIuOCJOIDExwrAzMScwMC4wIkU!5e0!3m2!1sfr!2scm!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+<div class="footer-container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img src="logo-the-canteens.jpg" alt="The Canteen's">
+<p>Plus qu'un restaurant, un lieu de vie. The Canteen allie gastronomie, lounge et gaming dans un cadre unique a Yaounde.</p>
+</div>
+<div>
+<div class="footer-title">Navigation</div>
+<ul class="footer-links">
+<li><a href="#accueil">Accueil</a></li>
+<li><a href="#services">Nos Univers</a></li>
+<li><a href="#recherche">Commander</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+<div>
+<div class="footer-title">Services</div>
+<ul class="footer-links">
+<li><a href="#" onclick="showService('restaurant');return false">Restaurant</a></li>
+<li><a href="#" onclick="showService('bar');return false">Bar</a></li>
+<li><a href="#" onclick="showService('lounge');return false">Lounge</a></li>
+<li><a href="#" onclick="showService('gaming');return false">Game Room</a></li>
+</ul>
+</div>
+<div>
+<div class="footer-title">Contact</div>
+<ul class="footer-links">
+<li><a href="tel:+237692677519">+237 692 677 519</a></li>
+<li><a href="tel:+237677138318">+237 677 138 318</a></li>
+<li><a href="https://wa.me/237671313694">WhatsApp</a></li>
+<li><a href="#">Yaounde, Cameroun</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 The Canteen's. Tous droits reserves.</p>
+<p>Propulse par Ordely</p>
+</div>
+</div>
+</footer>
+
+<!-- ==================== CART BAR ==================== -->
+<div class="cart-bar" id="cartBar">
+<div class="cart-info">
+<div class="cart-count" id="cartCount">0</div>
+<span class="cart-text" id="cartText">articles</span>
+</div>
+<div class="cart-total" id="cartTotal">0 F</div>
+<div class="cart-actions">
+<button class="cart-btn-clear" onclick="clearCart()">Vider</button>
+<a href="#" class="cart-btn-whatsapp" id="whatsappLink" target="_blank">
+<svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Commander par WhatsApp
+</a>
+</div>
+</div>
+
+<!-- ==================== WHATSAPP FAB ==================== -->
+<a href="https://wa.me/237671313694?text=Bonjour%20The%20Canteen's%20!" class="whatsapp-fab" target="_blank">
+<span class="whatsapp-tooltip">Contacter The Canteen's</span>
+<svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// Cart system
+let cart = [];
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    updateCartUI();
+}
+
+function clearCart() {
+    cart = [];
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const bar = document.getElementById('cartBar');
+    const count = document.getElementById('cartCount');
+    const text = document.getElementById('cartText');
+    const total = document.getElementById('cartTotal');
+    const link = document.getElementById('whatsappLink');
+    
+    if (cart.length === 0) {
+        bar.classList.remove('show');
+        return;
+    }
+    
+    const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+    count.textContent = cart.length;
+    text.textContent = cart.length === 1 ? 'article' : 'articles';
+    total.textContent = totalPrice.toLocaleString('fr-FR') + ' F';
+    
+    // Build WhatsApp message
+    let msg = "Bonjour The Canteen's !%0A%0AJe voudrais commander :%0A%0A";
+    cart.forEach((item, i) => {
+        msg += (i + 1) + ". " + item.name + " - " + item.price.toLocaleString('fr-FR') + " F%0A";
+    });
+    msg += "%0ATotal : " + totalPrice.toLocaleString('fr-FR') + " FCFA%0A%0AMerci !";
+    link.href = "https://wa.me/237692677519?text=" + msg;
+    
+    bar.classList.add('show');
+}
+
+// Show service pages
+function showService(service) {
+    // Hide home sections
+    document.querySelector('.hero').style.display = 'none';
+    document.querySelector('.search-section').style.display = 'none';
+    document.querySelector('.carousel-section').style.display = 'none';
+    document.querySelector('.contact-section').style.display = 'none';
+    document.querySelector('.footer').style.display = 'none';
+    
+    // Hide all service pages
+    document.querySelectorAll('.service-page').forEach(p => p.classList.remove('active'));
+    
+    // Show selected
+    const page = document.getElementById('page-' + service);
+    if (page) page.classList.add('active');
+    
+    window.scrollTo(0, 0);
+}
+
+// Go back home
+function goHome() {
+    // Show home sections
+    document.querySelector('.hero').style.display = '';
+    document.querySelector('.search-section').style.display = '';
+    document.querySelector('.carousel-section').style.display = '';
+    document.querySelector('.contact-section').style.display = '';
+    document.querySelector('.footer').style.display = '';
+    
+    // Hide all service pages
+    document.querySelectorAll('.service-page').forEach(p => p.classList.remove('active'));
+    
+    window.scrollTo(0, 0);
+}
+
+// Sub-nav buttons
+document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.parentElement.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll('.product-card, .gaming-card').forEach(card => {
+        const name = card.querySelector('.product-name, .gaming-name')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('.product-desc, .gaming-desc')?.textContent.toLowerCase() || '';
+        card.style.display = (name.includes(term) || desc.includes(term)) ? '' : 'none';
+    });
+});
+</script>
+</body>
+</html>
